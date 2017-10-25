@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         SNH48 Lucky Ticket 1.1 (ticket page)
-// @namespace    https://github.com/TangHHH/snh48-get-lucky-tickets
-// @version      1.1.5
-// @description  SNH48新官方商城捡漏脚本（票务页面刷票）
-// @author       TangHHH
+// @name         sbcuiwen
+// @namespace    https://github.com/xiaoguan002/sbcuiwen
+// @version      1
+// @description  sbcuiwen
+// @author       xiaoguan002
 // @match        https://shop.48.cn/tickets/item/*
 // @grant        none
 // ==/UserScript==
