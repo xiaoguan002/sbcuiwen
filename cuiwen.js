@@ -16,7 +16,7 @@
     var _seattype;
     var L_state = false;
     var _id = location.pathname.split('/tickets/item/')[1];
-    var _brand_id = $('body script').text().match(/brand_id:(\d+)/)[1];
+    var _brand_id = $('body script').text().match(/brand_id: (\d+)/)[1];
     var lastTime = 0;
 
     $('#addcart').after('<div id="Tmessage">null</div>');
