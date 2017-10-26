@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         sbcuiwen
 // @namespace    https://github.com/xiaoguan002/sbcuiwen
-// @version      1
+// @version      1.1
 // @description  sbcuiwen
 // @author       xiaoguan002
 // @match        https://shop.48.cn/tickets/item/*
