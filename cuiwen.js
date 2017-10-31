@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         sbcuiwen
 // @namespace    https://github.com/xiaoguan002/sbcuiwen
-// @version      1.1
-// @description  sbcuiwen
+// @version      1.2
+// @description  sbcuiwen 1.0
 // @author       xiaoguan002
 // @match        https://shop.48.cn/tickets/item/*
 // @grant        none
@@ -12,11 +12,11 @@
 (function() {
     'use strict';
     var _num=1;
-    var looptime = 10;
+    var looptime = 5;
     var _seattype;
     var L_state = false;
     var _id = location.pathname.split('/tickets/item/')[1];
-    var _brand_id = $('body script').text().match(/brand_id: (\d+)/)[1];
+    var _brand_id = $('body').text().match(/brand_id: (\d+)/)[1];
     var lastTime = 0;
 
     $('#addcart').after('<div id="Tmessage">null</div>');
@@ -81,7 +81,11 @@
     var sign = false;
     function loopTickets() {
         if(L_state){
-            sign = false;
+            $('.refreshTime').html(dateToTime(new Date()));
+            $('.message').html("looping...");
+            if ($("#buy").hasClass("blue_nb_gray")) {
+                setTimeout(function(){loopTickets();},looptime);
+            }
             $.ajax({
                 url: "/tickets/saleList",
                 type: "get",
@@ -90,28 +94,20 @@
                 success: function (data) {
                     if (data.length>0)
                     {
-                        $('.refreshTime').html(dateToTime(new Date()));
                         date = new Date().getTime();
                         $(data).each(function(i,n){
                             for(j=0;j<_seattype.length;j++) {
-                                if (n.seat_type ==_seattype[j] && n.amount>0 && n.tickets_sale_is_on_sale == true && $("#buy").hasClass("blue_nb_gray") == false) {
+                                if (n.seat_type ==_seattype[j] && n.amount>0 && n.tickets_sale_is_on_sale == true) {
                                     lastTime = date;
-                                    $('.message').html("its time");
                                     buyTicket(_id,_num,n.seat_type,_brand_id);
-                                    sign = true;
-                                }
-                                else {
-                                    $('.message').html("not time");
                                 }
                             }
                         });
-
                     }
-                    if(!sign)
-                        setTimeout(function(){loopTickets();},looptime);
                 },
                 error: function (e) {
                     $('.message').html("刷新失败，请检查网络");
+                    setTimeout(function(){loopTickets();},looptime);
                 }
             });
         }
