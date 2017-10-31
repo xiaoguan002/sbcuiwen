@@ -12,7 +12,7 @@
 (function() {
     'use strict';
     var _num=1;
-    var looptime = 5;
+    var looptime = 10;
     var _seattype;
     var L_state = false;
     var _id = location.pathname.split('/tickets/item/')[1];
@@ -82,9 +82,10 @@
     function loopTickets() {
         if(L_state){
             $('.refreshTime').html(dateToTime(new Date()));
-            $('.message').html("looping...");
+            $('.message').html("waiting...");
             if ($("#buy").hasClass("blue_nb_gray")) {
                 setTimeout(function(){loopTickets();},looptime);
+                return;
             }
             $.ajax({
                 url: "/tickets/saleList",
@@ -107,7 +108,6 @@
                 },
                 error: function (e) {
                     $('.message').html("刷新失败，请检查网络");
-                    setTimeout(function(){loopTickets();},looptime);
                 }
             });
         }
@@ -116,7 +116,6 @@
 
     function buyTicket(ticketId,num,seatType,brandId)
     {
-
         $.ajax({
             url: "/TOrder/add",
             type: "post",
